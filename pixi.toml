@@ -1,0 +1,24 @@
+[workspace]
+name = "qbestd"
+version = "0.1.0"
+authors = ["Maulik Madhavi <maulik.madhavi@gmail.com>"]
+channels = ["nvidia/label/cuda-12.8.0", "nvidia", "conda-forge", "pytorch"]
+platforms = ["win-64"]
+
+[tasks]
+
+[dependencies]
+python = ">=3.12,<3.13"
+pip = ">=26.0.1,<27"
+# CUDA 12.8 is now available via nvidia/label/cuda-12.8.0 channel
+cuda-toolkit = "12.8.*"
+
+[pypi-dependencies]
+soundfile = ">=0.13.1, <0.14"
+pandas = ">=3.0.0, <4"
+scikit-learn = ">=1.8.0, <2"
+transformers = ">=5.1.0, <6"
+# PyTorch 2.8.0 with CUDA 12.8 support is now available
+torch = { version = ">=2.8.0, <2.9", index = "https://download.pytorch.org/whl/cu128" }
+torchvision = { version = ">=0.23.0, <0.24", index = "https://download.pytorch.org/whl/cu128" }
+torchaudio = { version = ">=2.8.0, <2.9", index = "https://download.pytorch.org/whl/cu128" }

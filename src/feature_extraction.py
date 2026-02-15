@@ -1,15 +1,23 @@
 import os
 import torch
 import soundfile as sf
+from scipy import signal
 import pandas as pd
 import argparse
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
 
-def extract_features_from_audio(input_dir, output_csv):
+def extract_features_from_audio(input_dir: str, output_csv: str):
+    # Setup device
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"Using device: {device}\n")
+    
     processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base-960h")
     model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base-960h")
+    model = model.to(device)
     model.eval()
 
+    os.makedirs(os.path.dirname(output_csv), exist_ok=True) # Ensure output directory exists    
+    
     vocab_size = len(processor.tokenizer.get_vocab())
     feature_size = model.config.hidden_size
     print(f"Vocabulary size: {vocab_size}")
@@ -18,7 +26,7 @@ def extract_features_from_audio(input_dir, output_csv):
     audio_files = [
         os.path.join(root, file)
         for root, _, files in os.walk(input_dir)
-        for file in files if file.endswith(".flac")
+        for file in files if file.endswith((".flac", ".wav"))
     ]
 
     print(f"Found {len(audio_files)} audio files.")
@@ -28,11 +36,15 @@ def extract_features_from_audio(input_dir, output_csv):
     for file_path in audio_files:
         try:
             audio_input, sample_rate = sf.read(file_path)
+            
+            # Resample to 16000 Hz if needed
             if sample_rate != 16000:
-                print(f"[WARN] {file_path} sample rate {sample_rate} != 16000 Hz, skipping.")
-                continue
+                num_samples = int(len(audio_input) * 16000 / sample_rate)
+                audio_input = signal.resample(audio_input, num_samples)
+                sample_rate = 16000
 
             inputs = processor(audio_input, sampling_rate=sample_rate, return_tensors="pt")
+            inputs = inputs.to(device)
             with torch.no_grad():
                 logits = model(inputs.input_values).logits
             predicted_ids = torch.argmax(logits, dim=-1)[0]

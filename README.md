@@ -7,13 +7,19 @@ This repository contains code for H-QuEST: Accelerating Query-by-Example Spoken 
 - Baseline retrieval methods including TF-IDF, DTW, and a BigTable-style inverted index (`src/baseline_retrievals.py`)
 - Main pipeline to run retrieval and output results (`main.py`)
 
+## Installation
+1. Install dependencies using [pixi](https://pixi.prefix.dev/latest/installation/):
+```pixi install
+```
+2. You can run the python under the pixi environment that can be activated with:
+```bash
+pixi shell
+```
+
 ## Usage
-Extract Features
+Step 1: Extract Features
 python feature_extraction.py --input_dir path/to/audio --output_csv features.csv
 
-Run Retrieval 
+Step 2: Run Retrieval
 python main.py --audio_csv features.csv --query_csv queries.csv --output_csv results.csv --top_k 10
-
-
-
 
