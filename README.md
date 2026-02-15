@@ -9,7 +9,8 @@ This repository contains code for H-QuEST: Accelerating Query-by-Example Spoken 
 
 ## Installation
 1. Install dependencies using [pixi](https://pixi.prefix.dev/latest/installation/):
-```pixi install
+```bash
+pixi install
 ```
 2. You can run the python under the pixi environment that can be activated with:
 ```bash
