@@ -2,8 +2,8 @@ import pandas as pd
 import argparse
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from baseline_retrievals import retrieve_tfidf, retrieve_dtw, BigTableInvertedIndex
-from hquest_retrieval import build_hnsw_index, retrieve_hnsw, H_quest
+from src.baseline_retrieval import retrieve_tfidf, retrieve_dtw, BigTableInvertedIndex
+from src.hquest_retrieval import build_hnsw_index, retrieve_hnsw, H_quest
 
 def run_retrieval(audio_csv_path, query_csv_path, output_csv_path, top_k=10):
     # Load audio data
