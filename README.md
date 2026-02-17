@@ -17,6 +17,9 @@ pixi install
 pixi shell
 ```
 
+## DTW C++ Implementation
+A high-performance C++ DTW module optimized with pybind11. Build with `pixi run build_dtw` and verify with `pixi run python test_dtw_verification.py`.
+
 ## Usage
 Step 1: Extract Features
 python feature_extraction.py --input_dir path/to/audio --output_csv features.csv

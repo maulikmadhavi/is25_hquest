@@ -4,3 +4,7 @@
 data/quesst14Database/
 data/*.csv
 src/__pycache__/
+hnsw_index.bin
+build/lib.linux-x86_64-cpython-312/dtw_cpp.cpython-312-x86_64-linux-gnu.so
+build/temp.linux-x86_64-cpython-312/src/dtw_cpp.o
+dtw_cpp.cpython-312-x86_64-linux-gnu.so

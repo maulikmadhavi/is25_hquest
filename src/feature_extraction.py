@@ -5,7 +5,7 @@ from scipy import signal
 import pandas as pd
 import argparse
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor
-
+from tqdm import tqdm
 def extract_features_from_audio(input_dir: str, output_csv: str):
     # Setup device
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -33,7 +33,7 @@ def extract_features_from_audio(input_dir: str, output_csv: str):
 
     results = []
 
-    for file_path in audio_files:
+    for file_path in tqdm(audio_files, desc="Processing audio files", unit="file", total=len(audio_files), ncols=80, colour="blue"):
         try:
             audio_input, sample_rate = sf.read(file_path)
             
