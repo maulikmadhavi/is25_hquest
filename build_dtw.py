@@ -6,7 +6,6 @@ Usage: python build_dtw.py
 
 import subprocess
 import sys
-import os
 from pathlib import Path
 
 def main():
@@ -41,7 +40,7 @@ def main():
     sys.path.insert(0, str(root_dir))
     try:
         import dtw_cpp
-        print(f"  ✓ Module imported successfully")
+        print("  ✓ Module imported successfully")
         
         # Test the module
         import numpy as np

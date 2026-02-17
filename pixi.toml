@@ -7,6 +7,7 @@ platforms = ["linux-64"]
 
 [tasks]
 build_dtw = "python build_dtw.py"
+lint = "ruff check --fix src/ main.py"
 
 [dependencies]
 python = ">=3.12,<3.13"
@@ -26,3 +27,4 @@ torchaudio = { version = ">=2.8.0, <2.9", index = "https://download.pytorch.org/
 pybind11 = ">=3.0.1, <4"
 hnswlib = ">=0.8.0, <1"
 biopython = ">=1.81, <2"
+ruff = ">=0.15.1, <0.16"
